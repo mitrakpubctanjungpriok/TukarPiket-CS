@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FORM TUKAR PIKET - SISTEM PENGAJUAN PERTUKARAN PIKET MITRA">
+    <title>FORM TUKAR PIKET</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔄</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔄 FORM TUKAR PIKET</h1>
+            <p class="subtitle">Isi Form Ini Untuk Pertukaran Piket</p>
+        </header>
+        
+        <!-- Messages -->
+        <div id="loadingMessage" class="message loading-message">
+            <span class="spinner"></span> Memuat data petugas...
+        </div>
+
+        <div id="successMessage" class="message success-message">
+            ✓ Data berhasil disimpan ke Google Sheets!
+        </div>
+
+        <div id="errorMessage" class="message error-message">
+            ✗ Terjadi kesalahan. Silakan coba lagi.
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            💡 <strong>Petunjuk:</strong> Pilih petugas yang akan bertukar jadwal piket, lalu isi detail shift untuk masing-masing petugas.
+        </div>
+
+        <!-- Form -->
+        <form id="shiftForm">
+            <!-- Section Petugas 1 -->
+            <section class="form-section">
+                <div class="section-title">👤 Petugas 1 (Yang Mengajukan)</div>
+                
+                <div class="form-group">
+                    <label for="petugas1">Nama Petugas 1 <span class="required">*</span></label>
+                    <select name="petugas1" id="petugas1" required disabled>
+                        <option value="">Memuat data...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal1">Tanggal Shift Awal <span class="required">*</span></label>
+                    <input type="date" name="tanggal1" id="tanggal1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="shift1">Shift Awal <span class="required">*</span></label>
+                    <select name="shift1" id="shift1" required>
+                        <option value="">Pilih</option>
+                        <option value="Pagi (07:00 - 17:00)">Pagi (07:00 - 17:00)</option>
+                        <option value="Malam (19:00 - 07:00)">Malam (19:00 - 07:00)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="area1">Area Piket Awal <span class="required">*</span></label>
+                    <select name="area1" id="area1" required>
+                        <option value="">Pilih</option>
+                        <option value="Halaman">Halaman</option>
+                        <option value="PTSP Piket Malam">PTSP Piket Malam</option>
+                        <option value="Gedung A dan B">Gedung A dan B</option>
+                    </select>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section Petugas 2 -->
+            <section class="form-section">
+                <div class="section-title">👤 Petugas 2 (Yang Ditukar)</div>
+
+                <div class="form-group">
+                    <label for="petugas2">Nama Petugas 2 <span class="required">*</span></label>
+                    <select name="petugas2" id="petugas2" required disabled>
+                        <option value="">Memuat data...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal2">Tanggal Shift Pengganti <span class="required">*</span></label>
+                    <input type="date" name="tanggal2" id="tanggal2" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="shift2">Shift Pengganti <span class="required">*</span></label>
+                    <select name="shift2" id="shift2" required>
+                        <option value="">Pilih</option>
+                       <option value="Pagi (07:00 - 17:00)">Pagi (07:00 - 17:00)</option>
+                        <option value="Malam (19:00 - 07:00)">Malam (19:00 - 07:00)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="area2">Area Piket Pengganti <span class="required">*</span></label>
+                    <select name="area2" id="area2" required>
+                        <option value="">Pilih</option>
+                        <option value="Halaman">Halaman</option>
+                        <option value="PTSP Piket Malam">PTSP Piket Malam</option>
+                        <option value="Gedung A dan B">Gedung A dan B</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn" id="submitBtn">
+                📤 Kirim Pengajuan
+            </button>
+        </form>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 Form Tukar Piket System</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
