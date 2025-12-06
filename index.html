@@ -3,126 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FORM TUKAR PIKET - SISTEM PENGAJUAN PERTUKARAN PIKET MITRA">
-    <title>FORM TUKAR PIKET</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔄</text></svg>">
+    <title>Form Tukar Piket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background: #ebf4ff;
+            border-left: 4px solid #667eea;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #2c5282;
+        }
+
+        .message {
+            display: none;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #48bb78;
+            color: white;
+        }
+
+        .error {
+            background: #f56565;
+            color: white;
+        }
+
+        .loading {
+            background: #4299e1;
+            color: white;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 24px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .required {
+            color: #f56565;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        select {
+            cursor: pointer;
+            background: white;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+            margin: 32px 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🔄 FORM TUKAR PIKET</h1>
-            <p class="subtitle">Isi Form Ini Untuk Pertukaran Piket</p>
-        </header>
+        <h1>🔄 Form Tukar Piket</h1>
+        <p class="subtitle">Isi form ini untuk mengajukan pertukaran jadwal piket</p>
         
-        <!-- Messages -->
-        <div id="loadingMessage" class="message loading-message">
-            <span class="spinner"></span> Memuat data petugas...
-        </div>
+        <div id="loadingMsg" class="message loading">⏳ Memuat data petugas...</div>
+        <div id="successMsg" class="message success">✓ Data berhasil disimpan!</div>
+        <div id="errorMsg" class="message error">✗ Terjadi kesalahan. Coba lagi.</div>
 
-        <div id="successMessage" class="message success-message">
-            ✓ Data berhasil disimpan ke Google Sheets!
-        </div>
-
-        <div id="errorMessage" class="message error-message">
-            ✗ Terjadi kesalahan. Silakan coba lagi.
-        </div>
-
-        <!-- Info Box -->
         <div class="info-box">
-            💡 <strong>Petunjuk:</strong> Pilih petugas yang akan bertukar jadwal piket, lalu isi detail shift untuk masing-masing petugas.
+            💡 <strong>Petunjuk:</strong> Pilih petugas yang akan bertukar jadwal piket
         </div>
 
-        <!-- Form -->
-        <form id="shiftForm">
-            <!-- Section Petugas 1 -->
-            <section class="form-section">
-                <div class="section-title">👤 Petugas 1 (Yang Mengajukan)</div>
-                
-                <div class="form-group">
-                    <label for="petugas1">Nama Petugas 1 <span class="required">*</span></label>
-                    <select name="petugas1" id="petugas1" required disabled>
-                        <option value="">Memuat data...</option>
-                    </select>
-                </div>
+        <form id="mainForm">
+            <div class="section-title">👤 Petugas 1 (Yang Mengajukan)</div>
+            
+            <div class="form-group">
+                <label>Nama Petugas 1 <span class="required">*</span></label>
+                <select id="petugas1" required>
+                    <option value="">Memuat...</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="tanggal1">Tanggal Shift Awal <span class="required">*</span></label>
-                    <input type="date" name="tanggal1" id="tanggal1" required>
-                </div>
+            <div class="form-group">
+                <label>Tanggal Shift Awal <span class="required">*</span></label>
+                <input type="date" id="tanggal1" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="shift1">Shift Awal <span class="required">*</span></label>
-                    <select name="shift1" id="shift1" required>
-                        <option value="">Pilih</option>
-                        <option value="Pagi (07:00 - 17:00)">Pagi (07:00 - 17:00)</option>
-                        <option value="Malam (19:00 - 07:00)">Malam (19:00 - 07:00)</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label>Shift Awal <span class="required">*</span></label>
+                <select id="shift1" required>
+                    <option value="">Pilih</option>
+                    <option value="Pagi (07:00 - 17:00)">Pagi (07:00 - 17:00)</option>
+                    <option value="Malam (19:00 - 07:00)">Malam (19:00 - 07:00)</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="area1">Area Piket Awal <span class="required">*</span></label>
-                    <select name="area1" id="area1" required>
-                        <option value="">Pilih</option>
-                        <option value="Halaman">Halaman</option>
-                        <option value="PTSP Piket Malam">PTSP Piket Malam</option>
-                        <option value="Gedung A dan B">Gedung A dan B</option>
-                    </select>
-                </div>
-            </section>
+            <div class="form-group">
+                <label>Area Piket Awal <span class="required">*</span></label>
+                <select id="area1" required>
+                    <option value="">Pilih</option>
+                    <option value="Halaman">Halaman</option>
+                    <option value="Gedung A dan B">Gedung A dan B</option>
+                    <option value="PTSP Piket Malam">PTSP Piket Malam</option>
+                </select>
+            </div>
 
             <div class="divider"></div>
 
-            <!-- Section Petugas 2 -->
-            <section class="form-section">
-                <div class="section-title">👤 Petugas 2 (Yang Ditukar)</div>
+            <div class="section-title">👤 Petugas 2 (Yang Ditukar)</div>
 
-                <div class="form-group">
-                    <label for="petugas2">Nama Petugas 2 <span class="required">*</span></label>
-                    <select name="petugas2" id="petugas2" required disabled>
-                        <option value="">Memuat data...</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label>Nama Petugas 2 <span class="required">*</span></label>
+                <select id="petugas2" required>
+                    <option value="">Memuat...</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="tanggal2">Tanggal Shift Pengganti <span class="required">*</span></label>
-                    <input type="date" name="tanggal2" id="tanggal2" required>
-                </div>
+            <div class="form-group">
+                <label>Tanggal Shift Pengganti <span class="required">*</span></label>
+                <input type="date" id="tanggal2" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="shift2">Shift Pengganti <span class="required">*</span></label>
-                    <select name="shift2" id="shift2" required>
-                        <option value="">Pilih</option>
-                       <option value="Pagi (07:00 - 17:00)">Pagi (07:00 - 17:00)</option>
-                        <option value="Malam (19:00 - 07:00)">Malam (19:00 - 07:00)</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label>Shift Pengganti <span class="required">*</span></label>
+                <select id="shift2" required>
+                    <option value="">Pilih</option>
+                    <option value="Pagi (07:00 - 17:00)">Pagi (07:00 - 17:00)</option>
+                    <option value="Malam (19:00 - 07:00)">Malam (19:00 - 07:00)</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="area2">Area Piket Pengganti <span class="required">*</span></label>
-                    <select name="area2" id="area2" required>
-                        <option value="">Pilih</option>
-                        <option value="Halaman">Halaman</option>
-                        <option value="PTSP Piket Malam">PTSP Piket Malam</option>
-                        <option value="Gedung A dan B">Gedung A dan B</option>
-                    </select>
-                </div>
-            </section>
+            <div class="form-group">
+                <label>Area Piket Pengganti <span class="required">*</span></label>
+                <select id="area2" required>
+                    <option value="">Pilih</option>
+                    <option value="Halaman">Halaman</option>
+                    <option value="Gedung A dan B">Gedung A dan B</option>
+                    <option value="PTSP Piket Malam">PTSP Piket Malam</option>
+                </select>
+            </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn" id="submitBtn">
-                📤 Kirim Pengajuan
-            </button>
+            <button type="submit" class="submit-btn" id="submitBtn">📤 Kirim Pengajuan</button>
         </form>
 
-        <!-- Footer -->
         <footer>
-            <p>© 2026 Form Tukar Piket System</p>
+            <p>© 2024 Form Tukar Piket System</p>
         </footer>
     </div>
 
-    <!-- Scripts -->
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // ============================================
+        // KONFIGURASI - GANTI URL ANDA DISINI
+        // ============================================
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxSqaANveC567cMCuXUdjffLm_p1Q1ilmsXNTXayJZfHg85sS2EkY-YS3R8OHyC52tu/exec';
+        
+        // ============================================
+        // JANGAN EDIT DIBAWAH INI
+        // ============================================
+        
+        const form = document.getElementById('mainForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingMsg = document.getElementById('loadingMsg');
+        const successMsg = document.getElementById('successMsg');
+        const errorMsg = document.getElementById('errorMsg');
+        const petugas1 = document.getElementById('petugas1');
+        const petugas2 = document.getElementById('petugas2');
+
+        // Set min date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('tanggal1').min = today;
+        document.getElementById('tanggal2').min = today;
+
+        // Load nama petugas
+        async function loadNames() {
+            loadingMsg.style.display = 'block';
+            
+            try {
+                const response = await fetch(`${API_URL}?action=getNames`);
+                const data = await response.json();
+                
+                if (data.names && data.names.length > 0) {
+                    const options = '<option value="">Pilih</option>' + 
+                        data.names.map(name => `<option value="${name}">${name}</option>`).join('');
+                    
+                    petugas1.innerHTML = options;
+                    petugas2.innerHTML = options;
+                    loadingMsg.style.display = 'none';
+                } else {
+                    throw new Error('Tidak ada data');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                petugas1.innerHTML = '<option value="">Error memuat data</option>';
+                petugas2.innerHTML = '<option value="">Error memuat data</option>';
+                loadingMsg.style.display = 'none';
+                errorMsg.textContent = '✗ Gagal memuat data. Refresh halaman atau cek URL Apps Script.';
+                errorMsg.style.display = 'block';
+                setTimeout(() => errorMsg.style.display = 'none', 5000);
+            }
+        }
+
+        // Submit form
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Validasi
+            if (petugas1.value === petugas2.value) {
+                alert('⚠️ Petugas 1 dan 2 tidak boleh sama!');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Mengirim...';
+
+            const data = {
+                timestamp: new Date().toLocaleString('id-ID'),
+                petugas1: petugas1.value,
+                tanggal1: document.getElementById('tanggal1').value,
+                shift1: document.getElementById('shift1').value,
+                area1: document.getElementById('area1').value,
+                petugas2: petugas2.value,
+                tanggal2: document.getElementById('tanggal2').value,
+                shift2: document.getElementById('shift2').value,
+                area2: document.getElementById('area2').value,
+            };
+
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+
+                successMsg.style.display = 'block';
+                form.reset();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+                setTimeout(() => successMsg.style.display = 'none', 4000);
+            } catch (error) {
+                errorMsg.style.display = 'block';
+                setTimeout(() => errorMsg.style.display = 'none', 4000);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '📤 Kirim Pengajuan';
+            }
+        });
+
+        // Load data saat halaman dibuka
+        loadNames();
+    </script>
 </body>
 </html>
