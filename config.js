@@ -6,7 +6,7 @@
 const CONFIG = {
     // URL dari Google Apps Script (setelah deploy)
     // Contoh: 'https://script.google.com/macros/s/AKfycby.../exec'
-    API_URL: 'PASTE_URL_GOOGLE_APPS_SCRIPT_DISINI',
+    API_URL: 'https://script.google.com/macros/s/AKfycbxSqaANveC567cMCuXUdjffLm_p1Q1ilmsXNTXayJZfHg85sS2EkY-YS3R8OHyC52tu/exec',
     
     // Timeout untuk request (dalam milidetik)
     REQUEST_TIMEOUT: 10000,
