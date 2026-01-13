@@ -3,361 +3,903 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORM TUKAR PIKET</title>
+    <title>Form Tukar Piket</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+        .gradient-bg {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
         }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            padding: 40px;
+        .card-shadow {
+            box-shadow: 0 10px 40px rgba(56, 189, 248, 0.2);
         }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 28px;
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            transition: all 0.3s ease;
         }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .info-box {
-            background: #ebf4ff;
-            border-left: 4px solid #667eea;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #2c5282;
-        }
-
-        .message {
-            display: none;
-            padding: 16px;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .success {
-            background: #48bb78;
-            color: white;
-        }
-
-        .error {
-            background: #f56565;
-            color: white;
-        }
-
-        .loading {
-            background: #4299e1;
-            color: white;
-        }
-
-        .section-title {
-            color: #667eea;
-            font-size: 18px;
-            font-weight: 600;
-            margin: 24px 0 16px 0;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-            font-size: 15px;
-        }
-
-        .required {
-            color: #f56565;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 15px;
-            font-family: inherit;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        select {
-            cursor: pointer;
-            background: white;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .submit-btn:hover {
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+        }
+        .input-focus:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+        }
+        .tab-active {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
         }
 
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        /* DB Banner (di atas header) */
+        .db-banner {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: slideDown 260ms ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .db-connected {
+            background: linear-gradient(135deg, rgba(16,185,129,0.18) 0%, rgba(52,211,153,0.12) 100%);
+            border-color: rgba(16,185,129,0.35);
+        }
+        .db-connecting {
+            background: linear-gradient(135deg, rgba(245,158,11,0.20) 0%, rgba(251,191,36,0.12) 100%);
+            border-color: rgba(245,158,11,0.35);
+        }
+        .db-disconnected {
+            background: linear-gradient(135deg, rgba(239,68,68,0.18) 0%, rgba(248,113,113,0.10) 100%);
+            border-color: rgba(239,68,68,0.35);
         }
 
-        .divider {
-            height: 2px;
-            background: linear-gradient(to right, transparent, #e2e8f0, transparent);
-            margin: 32px 0;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 32px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-            color: #666;
-            font-size: 14px;
-        }
-
-        @media (max-width: 640px) {
-            .container {
-                padding: 24px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-        }
+        /* History badge number: prevent clipping on some mobile browsers */
+        .tabular-nums { font-variant-numeric: tabular-nums; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>🔄 FORM TUKAR PIKET</h1>
-        <p class="subtitle">Isi form ini untuk mengajukan pertukaran jadwal piket</p>
-        
-        <div id="loadingMsg" class="message loading">⏳ Memuat data petugas...</div>
-        <div id="successMsg" class="message success">✓ Data berhasil disimpan!</div>
-        <div id="errorMsg" class="message error">✗ Terjadi kesalahan. Coba lagi.</div>
-
-        <div class="info-box">
-            💡 <strong>Petunjuk:</strong> Pilih nama petugas yang akan bertukar jadwal piket
+<body class="gradient-bg min-h-screen">
+    <!-- Database Connection Notice (muncul tepat di atas header, tidak menutup header) -->
+    <div id="dbPopup" class="hidden">
+        <div class="w-full">
+            <div class="max-w-6xl mx-auto px-4 pt-4">
+                <div id="dbPopupContent" class="db-banner rounded-2xl px-5 py-3 shadow-lg border flex items-center justify-between gap-4 mb-3">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <div id="dbPopupIcon" class="shrink-0"></div>
+                        <div class="min-w-0">
+                            <div id="dbPopupText" class="font-semibold leading-tight truncate"></div>
+                            <div id="dbPopupSubText" class="text-xs opacity-80 leading-tight truncate">Status koneksi Google Sheets</div>
+                        </div>
+                    </div>
+                    <button id="dbPopupClose" type="button" class="shrink-0 rounded-xl px-3 py-2 text-sm font-semibold border bg-white/60 hover:bg-white/80 transition">Tutup</button>
+                </div>
+            </div>
         </div>
-
-        <form id="mainForm">
-            <div class="section-title">👤 Petugas 1 (Yang Mengajukan)</div>
-            
-            <div class="form-group">
-                <label>Nama Petugas 1 <span class="required">*</span></label>
-                <select id="petugas1" required>
-                    <option value="">Memuat...</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Tanggal Shift Awal <span class="required">*</span></label>
-                <input type="date" id="tanggal1" required>
-            </div>
-
-            <div class="form-group">
-                <label>Shift Awal <span class="required">*</span></label>
-                <select id="shift1" required>
-                    <option value="">Pilih</option>
-                    <option value="Pagi (07:00 - 17:00)">Pagi (07:00 - 17:00)</option>
-                    <option value="Malam (19:00 - 07:00)">Malam (19:00 - 07:00)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Area Piket Awal <span class="required">*</span></label>
-                <select id="area1" required>
-                    <option value="">Pilih</option>
-                    <option value="Halaman">Halaman</option>
-                    <option value="Gedung A dan B">Gedung A dan B</option>
-                    <option value="PTSP Piket Malam">PTSP Piket Malam</option>
-                </select>
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="section-title">👤 Petugas 2 (Yang Ditukar)</div>
-
-            <div class="form-group">
-                <label>Nama Petugas 2 <span class="required">*</span></label>
-                <select id="petugas2" required>
-                    <option value="">Memuat...</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Tanggal Shift Pengganti <span class="required">*</span></label>
-                <input type="date" id="tanggal2" required>
-            </div>
-
-            <div class="form-group">
-                <label>Shift Pengganti <span class="required">*</span></label>
-                <select id="shift2" required>
-                    <option value="">Pilih</option>
-                    <option value="Pagi (07:00 - 17:00)">Pagi (07:00 - 17:00)</option>
-                    <option value="Malam (19:00 - 07:00)">Malam (19:00 - 07:00)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Area Piket Pengganti <span class="required">*</span></label>
-                <select id="area2" required>
-                    <option value="">Pilih</option>
-                    <option value="Halaman">Halaman</option>
-                    <option value="Gedung A dan B">Gedung A dan B</option>
-                    <option value="PTSP Piket Malam">PTSP Piket Malam</option>
-                </select>
-            </div>
-
-            <button type="submit" class="submit-btn" id="submitBtn">📤 Kirim Pengajuan</button>
-        </form>
-
-        <footer>
-            <p>© 2024 Form Tukar Piket System</p>
-        </footer>
     </div>
 
-    <script>
-        // ============================================
-        // KONFIGURASI - GANTI URL ANDA DISINI
-        // ============================================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbxSqaANveC567cMCuXUdjffLm_p1Q1ilmsXNTXayJZfHg85sS2EkY-YS3R8OHyC52tu/exec';
-        
-        // ============================================
-        // JANGAN EDIT DIBAWAH INI
-        // ============================================
-        
-        const form = document.getElementById('mainForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const loadingMsg = document.getElementById('loadingMsg');
-        const successMsg = document.getElementById('successMsg');
-        const errorMsg = document.getElementById('errorMsg');
-        const petugas1 = document.getElementById('petugas1');
-        const petugas2 = document.getElementById('petugas2');
+    <!-- Header dengan Jam Jakarta -->
+    <header id="appHeader" class="bg-white/80 backdrop-blur-md shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-br from-sky-400 to-sky-600 p-3 rounded-xl">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-sky-800">Form Tukar Piket</h1>
+                        <p class="text-sky-600 text-sm">Sistem Pengajuan Tukar Jadwal Piket</p>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-sky-100 to-sky-200 px-6 py-3 rounded-xl">
+                    <div id="jakartaClock" class="text-2xl font-bold text-sky-800 text-center"></div>
+                    <div id="jakartaDate" class="text-sm text-sky-600 text-center"></div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        // Set min date
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('tanggal1').min = today;
-        document.getElementById('tanggal2').min = today;
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Tab Navigation (Sticky) -->
+        <div id="tabBar" class="relative">
+            <div class="flex justify-center py-4">
+                <div class="bg-white/70 backdrop-blur-md rounded-2xl p-2 flex gap-2 card-shadow">
+                <button onclick="switchTab('form')" id="tabForm" class="tab-active px-8 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                    Form Pengajuan
+                </button>
+                <button onclick="switchTab('history')" id="tabHistory" class="px-8 py-3 rounded-xl font-semibold text-sky-700 hover:bg-sky-100 transition-all duration-300 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Riwayat Pengajuan
+                </button>
+                </div>
+            </div>
+        </div>
 
-        // Load nama petugas
-        async function loadNames() {
-            loadingMsg.style.display = 'block';
-            
-            try {
-                const response = await fetch(`${API_URL}?action=getNames`);
-                const data = await response.json();
+        <div class="h-4"></div>
+
+        <!-- Form Section -->
+        <div id="formSection" class="block">
+            <form id="tukarPiketForm" class="bg-white/90 backdrop-blur-md rounded-3xl card-shadow p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Petugas 1 -->
+                    <div class="bg-gradient-to-br from-sky-50 to-sky-100 rounded-2xl p-6">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="bg-sky-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg">1</div>
+                            <div>
+                                <h2 class="text-xl font-bold text-sky-800">Petugas 1</h2>
+                                <p class="text-sky-600 text-sm">Yang Mengajukan</p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sky-700 font-medium mb-2">Nama Petugas 1</label>
+                                <select id="petugas1" required class="w-full px-4 py-3 border-2 border-sky-200 rounded-xl input-focus outline-none bg-white">
+                                    <option value="">-- Pilih Nama Petugas --</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sky-700 font-medium mb-2">Tanggal Shift Awal</label>
+                                <input type="date" id="tanggal1" required class="w-full px-4 py-3 border-2 border-sky-200 rounded-xl input-focus outline-none bg-white">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sky-700 font-medium mb-2">Shift Awal</label>
+                                <select id="shift1" required class="w-full px-4 py-3 border-2 border-sky-200 rounded-xl input-focus outline-none bg-white">
+                                    <option value="">-- Pilih Shift --</option>
+                                    <option value="Pagi (07:00 - 17:00)">🌅 Pagi (07:00 - 17:00)</option>
+                                    <option value="Malam (19:00 - 07:00)">🌙 Malam (19:00 - 07:00)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sky-700 font-medium mb-2">Area Piket Awal</label>
+                                <select id="area1" required class="w-full px-4 py-3 border-2 border-sky-200 rounded-xl input-focus outline-none bg-white">
+                                    <option value="">-- Pilih Area --</option>
+                                    <option value="Halaman">🏞️ Halaman</option>
+                                    <option value="Gedung A dan B">🏢 Gedung A dan B</option>
+                                    <option value="PTSP">🏛️ PTSP</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Petugas 2 -->
+                    <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl p-6">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="bg-cyan-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg">2</div>
+                            <div>
+                                <h2 class="text-xl font-bold text-cyan-800">Petugas 2</h2>
+                                <p class="text-cyan-600 text-sm">Yang Ditukar</p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-cyan-700 font-medium mb-2">Nama Petugas 2</label>
+                                <select id="petugas2" required class="w-full px-4 py-3 border-2 border-cyan-200 rounded-xl input-focus outline-none bg-white">
+                                    <option value="">-- Pilih Nama Petugas --</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-cyan-700 font-medium mb-2">Tanggal Shift Pengganti</label>
+                                <input type="date" id="tanggal2" required class="w-full px-4 py-3 border-2 border-cyan-200 rounded-xl input-focus outline-none bg-white">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-cyan-700 font-medium mb-2">Shift Pengganti</label>
+                                <select id="shift2" required class="w-full px-4 py-3 border-2 border-cyan-200 rounded-xl input-focus outline-none bg-white">
+                                    <option value="">-- Pilih Shift --</option>
+                                    <option value="Pagi (07:00 - 17:00)">🌅 Pagi (07:00 - 17:00)</option>
+                                    <option value="Malam (19:00 - 07:00)">🌙 Malam (19:00 - 07:00)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-cyan-700 font-medium mb-2">Area Piket Pengganti</label>
+                                <select id="area2" required class="w-full px-4 py-3 border-2 border-cyan-200 rounded-xl input-focus outline-none bg-white">
+                                    <option value="">-- Pilih Area --</option>
+                                    <option value="Halaman">🏞️ Halaman</option>
+                                    <option value="Gedung A dan B">🏢 Gedung A dan B</option>
+                                    <option value="PTSP">🏛️ PTSP</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-8 text-center">
+                    <button type="submit" id="submitBtn" class="btn-primary text-white px-12 py-4 rounded-2xl font-bold text-lg inline-flex items-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                        Ajukan Tukar Piket
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- History Section -->
+        <div id="historySection" class="hidden">
+            <div class="bg-white/90 backdrop-blur-md rounded-3xl card-shadow p-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <h2 class="text-2xl font-bold text-sky-800">📋 Riwayat Pengajuan</h2>
+                    <div class="flex items-center gap-3 justify-between md:justify-end">
+                        <label for="historyPerPage" class="text-sm font-semibold text-sky-700">Tampilkan</label>
+                        <select id="historyPerPage" class="px-4 py-2 border-2 border-sky-200 rounded-xl input-focus outline-none bg-white text-sky-800 font-semibold">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span class="text-sm text-sky-700">data</span>
+                    </div>
+                </div>
+
+                <div id="historyMeta" class="text-sm text-sky-700 mb-4"></div>
+
+                <div id="historyList" class="space-y-4">
+                    <div class="text-center py-12 text-sky-600">
+                        <div class="w-10 h-10 border-4 border-sky-200 border-t-sky-500 rounded-full animate-spin mx-auto"></div>
+                        <p class="mt-4 text-lg">Memuat data riwayat...</p>
+                    </div>
+                </div>
+
+                <div id="historyPagination" class="mt-6 flex flex-wrap items-center justify-center gap-2"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 border-4 border-sky-200 border-t-sky-500 rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-sky-800 font-medium">Sedang memproses...</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-3xl p-8 text-center max-w-md mx-4 transform scale-100 fade-in">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Berhasil!</h3>
+            <p class="text-gray-600 mb-6">Pengajuan tukar piket berhasil dikirim.</p>
+            <button onclick="closeSuccessModal()" class="btn-primary text-white px-8 py-3 rounded-xl font-semibold">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Setup Instructions -->
+    <div id="setupModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-2xl max-h-[90vh] overflow-y-auto fade-in">
+            <h3 class="text-2xl font-bold text-sky-800 mb-4">⚙️ Setup Google Sheets</h3>
+            <div class="text-gray-700 space-y-4 text-sm">
+                <p><strong>Langkah 1:</strong> Buat Google Sheet baru dengan 3 sheet:</p>
+                <ul class="list-disc ml-6">
+                    <li><strong>Sheet "Daftar_Petugas"</strong> - Kolom A berisi nama-nama petugas</li>
+                    <li><strong>Sheet "Data_Pengajuan"</strong> - Untuk data tukar piket</li>
+                    <li><strong>Sheet "Laporan_Pelanggaran"</strong> - Untuk laporan pelanggaran</li>
+                </ul>
+                <p><strong>Langkah 2:</strong> Buka Extensions → Apps Script, paste kode dari file code.gs</p>
+                <p><strong>Langkah 3:</strong> Jalankan fungsi <code class="bg-gray-100 px-2 py-1 rounded">setupAllSheets()</code> untuk setup otomatis</p>
+                <p><strong>Langkah 4:</strong> Deploy → New deployment → Web app → Execute as: Me, Who has access: Anyone</p>
+                <p><strong>Langkah 5:</strong> Copy URL deployment dan paste di bawah:</p>
                 
-                if (data.names && data.names.length > 0) {
-                    const options = '<option value="">Pilih</option>' + 
-                        data.names.map(name => `<option value="${name}">${name}</option>`).join('');
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-4">
+                    <p class="font-bold text-blue-800 mb-2">📧 Notifikasi Email</p>
+                    <p class="text-sm">Setiap pengajuan akan otomatis dikirim ke email: <strong>mitrakpubctanjungpriok@gmail.com</strong></p>
+                </div>
+                <input type="text" id="scriptUrl" placeholder="Paste URL Web App di sini..." class="w-full px-4 py-3 border-2 border-sky-200 rounded-xl">
+                <div class="flex gap-3 mt-4">
+                    <button onclick="saveScriptUrl()" class="btn-primary text-white px-6 py-3 rounded-xl font-semibold flex-1">Simpan</button>
+                    <button onclick="closeSetupModal()" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl font-semibold">Tutup</button>
+                </div>
+                
+                <hr class="my-6 border-sky-200">
+                
+                <h4 class="text-xl font-bold text-sky-800 mb-4">🚀 Deploy ke GitHub + Cloudflare</h4>
+                
+                <div class="space-y-4">
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <p class="font-bold text-gray-800 mb-2">📁 Langkah 1: Setup GitHub</p>
+                        <ol class="list-decimal ml-5 text-sm space-y-1">
+                            <li>Buka <a href="https://github.com" target="_blank" class="text-sky-600 underline">github.com</a> dan login/daftar</li>
+                            <li>Klik tombol <strong>"+"</strong> di kanan atas → <strong>"New repository"</strong></li>
+                            <li>Beri nama repository (contoh: <strong>form-tukar-piket</strong>)</li>
+                            <li>Pilih <strong>"Public"</strong></li>
+                            <li>Centang <strong>"Add a README file"</strong></li>
+                            <li>Klik <strong>"Create repository"</strong></li>
+                            <li>Klik <strong>"Add file"</strong> → <strong>"Upload files"</strong></li>
+                            <li>Upload file <strong>index.html</strong> ini</li>
+                            <li>Klik <strong>"Commit changes"</strong></li>
+                        </ol>
+                    </div>
                     
-                    petugas1.innerHTML = options;
-                    petugas2.innerHTML = options;
-                    loadingMsg.style.display = 'none';
-                } else {
-                    throw new Error('Tidak ada data');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                petugas1.innerHTML = '<option value="">Error memuat data</option>';
-                petugas2.innerHTML = '<option value="">Error memuat data</option>';
-                loadingMsg.style.display = 'none';
-                errorMsg.textContent = '✗ Gagal memuat data. Refresh halaman atau cek URL Apps Script.';
-                errorMsg.style.display = 'block';
-                setTimeout(() => errorMsg.style.display = 'none', 5000);
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <p class="font-bold text-gray-800 mb-2">☁️ Langkah 2: Deploy ke Cloudflare Pages</p>
+                        <ol class="list-decimal ml-5 text-sm space-y-1">
+                            <li>Buka <a href="https://dash.cloudflare.com" target="_blank" class="text-sky-600 underline">dash.cloudflare.com</a> dan login/daftar</li>
+                            <li>Di sidebar kiri, klik <strong>"Workers & Pages"</strong></li>
+                            <li>Klik <strong>"Create application"</strong> → <strong>"Pages"</strong> → <strong>"Connect to Git"</strong></li>
+                            <li>Hubungkan akun GitHub Anda</li>
+                            <li>Pilih repository <strong>form-tukar-piket</strong></li>
+                            <li>Klik <strong>"Begin setup"</strong></li>
+                            <li>Project name: isi nama (contoh: <strong>tukar-piket</strong>)</li>
+                            <li>Build settings: biarkan kosong (tidak perlu build)</li>
+                            <li>Klik <strong>"Save and Deploy"</strong></li>
+                            <li>Tunggu proses deploy selesai</li>
+                            <li>Website Anda akan tersedia di: <strong>https://tukar-piket.pages.dev</strong></li>
+                        </ol>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+                        <p class="font-bold text-green-800 mb-2">✅ Selesai!</p>
+                        <p class="text-sm text-green-700">Setiap kali Anda update file di GitHub, Cloudflare akan otomatis deploy ulang website Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-6 text-sky-700">
+        <p>© <span id="footerYear">2024</span> Sistem Layanan Digital</p>
+    </footer>
+
+    <script>
+        // Configuration
+        const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxSqaANveC567cMCuXUdjffLm_p1Q1ilmsXNTXayJZfHg85sS2EkY-YS3R8OHyC52tu/exec';
+        let SCRIPT_URL = localStorage.getItem('scriptUrl') || DEFAULT_SCRIPT_URL;
+        let isConnected = false;
+
+        // Database Connection Banner (di atas header)
+        let dbPopupAutoHideTimer = null;
+        function showDbPopup(status) {
+            const popup = document.getElementById('dbPopup');
+            const content = document.getElementById('dbPopupContent');
+            const icon = document.getElementById('dbPopupIcon');
+            const text = document.getElementById('dbPopupText');
+            const subText = document.getElementById('dbPopupSubText');
+
+            if (dbPopupAutoHideTimer) {
+                clearTimeout(dbPopupAutoHideTimer);
+                dbPopupAutoHideTimer = null;
+            }
+
+            popup.classList.remove('hidden');
+            content.classList.remove('db-connected', 'db-connecting', 'db-disconnected');
+
+            if (status === 'connecting') {
+                content.classList.add('db-connecting');
+                icon.innerHTML = `
+                    <div class="relative">
+                        <div class="w-9 h-9 rounded-xl bg-yellow-500/15 border border-yellow-500/25 flex items-center justify-center">
+                            <div class="w-4 h-4 border-2 border-yellow-600 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    </div>
+                `;
+                text.textContent = 'Menghubungkan database...';
+                text.className = 'font-semibold text-yellow-900';
+                subText.textContent = 'Mengambil daftar petugas dari Google Sheets';
+                subText.className = 'text-xs text-yellow-900/70 leading-tight truncate';
+
+            } else if (status === 'connected') {
+                content.classList.add('db-connected');
+                icon.innerHTML = `
+                    <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                `;
+                text.textContent = 'Terhubung database';
+                text.className = 'font-semibold text-emerald-900';
+                subText.textContent = 'Siap menerima pengajuan & menampilkan riwayat';
+                subText.className = 'text-xs text-emerald-900/70 leading-tight truncate';
+
+                dbPopupAutoHideTimer = setTimeout(() => {
+                    popup.classList.add('hidden');
+                }, 2500);
+
+            } else if (status === 'disconnected') {
+                content.classList.add('db-disconnected');
+                icon.innerHTML = `
+                    <div class="w-9 h-9 rounded-xl bg-red-500/15 border border-red-500/25 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
+                `;
+                text.textContent = 'Tidak terhubung database';
+                text.className = 'font-semibold text-red-900';
+                subText.textContent = 'Cek URL Apps Script atau pengaturan akses (Anyone)';
+                subText.className = 'text-xs text-red-900/70 leading-tight truncate';
             }
         }
 
-        // Submit form
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // Jakarta Clock
+        function updateJakartaClock() {
+            const options = { timeZone: 'Asia/Jakarta' };
+            const now = new Date();
             
-            // Validasi
-            if (petugas1.value === petugas2.value) {
-                alert('⚠️ Petugas 1 dan 2 tidak boleh sama!');
+            const timeOptions = { ...options, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const dateOptions = { ...options, weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            
+            document.getElementById('jakartaClock').textContent = now.toLocaleTimeString('id-ID', timeOptions);
+            document.getElementById('jakartaDate').textContent = now.toLocaleDateString('id-ID', dateOptions);
+
+            // Footer year mengikuti tahun WIB
+            const yearStr = new Intl.DateTimeFormat('id-ID', { timeZone: 'Asia/Jakarta', year: 'numeric' }).format(now);
+            const footerYearEl = document.getElementById('footerYear');
+            if (footerYearEl) footerYearEl.textContent = yearStr;
+        }
+        
+        setInterval(updateJakartaClock, 1000);
+        updateJakartaClock();
+
+        // Auto refresh interval
+        let historyRefreshInterval = null;
+        let historyLastSignature = null;
+        let historyHasEverLoaded = false;
+
+        // History pagination state
+        let historyAllData = [];
+        let historyPage = 1;
+        let historyPerPage = parseInt(localStorage.getItem('historyPerPage') || '10', 10);
+        if (![10,20,30,40,50,100].includes(historyPerPage)) historyPerPage = 10;
+
+        // Tab Switching
+        function switchTab(tab) {
+            const formSection = document.getElementById('formSection');
+            const historySection = document.getElementById('historySection');
+            const tabForm = document.getElementById('tabForm');
+            const tabHistory = document.getElementById('tabHistory');
+            
+            if (tab === 'form') {
+                formSection.classList.remove('hidden');
+                historySection.classList.add('hidden');
+                tabForm.classList.add('tab-active');
+                tabForm.classList.remove('text-sky-700', 'hover:bg-sky-100');
+                tabHistory.classList.remove('tab-active');
+                tabHistory.classList.add('text-sky-700', 'hover:bg-sky-100');
+                // Stop auto refresh when leaving history tab
+                if (historyRefreshInterval) {
+                    clearInterval(historyRefreshInterval);
+                    historyRefreshInterval = null;
+                }
+            } else {
+                formSection.classList.add('hidden');
+                historySection.classList.remove('hidden');
+                tabHistory.classList.add('tab-active');
+                tabHistory.classList.remove('text-sky-700', 'hover:bg-sky-100');
+                tabForm.classList.remove('tab-active');
+                tabForm.classList.add('text-sky-700', 'hover:bg-sky-100');
+
+                // First load (show loading UI)
+                loadHistory({ silent: false });
+
+                // Start auto refresh every 10 seconds (silent, no flicker)
+                if (historyRefreshInterval) {
+                    clearInterval(historyRefreshInterval);
+                }
+                historyRefreshInterval = setInterval(() => loadHistory({ silent: true }), 10000);
+            }
+        }
+
+        // Load Petugas from Google Sheets
+        async function loadPetugas() {
+            if (!SCRIPT_URL) {
+                showDbPopup('disconnected');
+                return;
+            }
+            
+            showDbPopup('connecting');
+            
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=getNames`);
+                const result = await response.json();
+                if (result.success) {
+                    populatePetugasDropdown(result.names);
+                    isConnected = true;
+                    showDbPopup('connected');
+                } else {
+                    showDbPopup('disconnected');
+                }
+            } catch (error) {
+                console.error('Error loading petugas:', error);
+                showDbPopup('disconnected');
+            }
+        }
+
+        function populatePetugasDropdown(names) {
+            const select1 = document.getElementById('petugas1');
+            const select2 = document.getElementById('petugas2');
+            
+            // Clear existing options except first
+            select1.innerHTML = '<option value="">-- Pilih Nama Petugas --</option>';
+            select2.innerHTML = '<option value="">-- Pilih Nama Petugas --</option>';
+            
+            names.forEach(nama => {
+                const option1 = new Option(nama, nama);
+                const option2 = new Option(nama, nama);
+                select1.add(option1);
+                select2.add(option2);
+            });
+        }
+
+        // Load History
+        // - default: initial load shows spinner
+        // - silent: background refresh without clearing UI (prevents "kedip")
+        async function loadHistory({ silent = false } = {}) {
+            const listEl = document.getElementById('historyList');
+            const metaEl = document.getElementById('historyMeta');
+            const pagerEl = document.getElementById('historyPagination');
+
+            if (!SCRIPT_URL) {
+                historyHasEverLoaded = false;
+                historyLastSignature = null;
+                historyAllData = [];
+                historyPage = 1;
+                if (metaEl) metaEl.textContent = '';
+                if (pagerEl) pagerEl.innerHTML = '';
+                if (listEl) {
+                    listEl.innerHTML = '<div class="text-center py-12 text-sky-600"><svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p class="text-lg">Silakan setup Google Sheets terlebih dahulu</p></div>';
+                }
                 return;
             }
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = '⏳ Mengirim...';
+            // Only show loading UI on very first load (avoid flicker)
+            if (!silent && !historyHasEverLoaded) {
+                if (listEl) {
+                    listEl.innerHTML = '<div class="text-center py-8"><div class="w-10 h-10 border-4 border-sky-200 border-t-sky-500 rounded-full animate-spin mx-auto"></div><p class="mt-4 text-sky-600">Memuat data...</p></div>';
+                }
+            }
 
-            const data = {
-                timestamp: new Date().toLocaleString('id-ID'),
-                petugas1: petugas1.value,
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=getTukarPiket`, { cache: 'no-store' });
+                const result = await response.json();
+                if (result.success) {
+                    const data = Array.isArray(result.data) ? result.data : [];
+
+                    // Build a lightweight signature to detect changes.
+                    const first = data[0] || {};
+                    const last = data[data.length - 1] || {};
+                    const signature = JSON.stringify({
+                        len: data.length,
+                        firstTs: first.Timestamp || '',
+                        lastTs: last.Timestamp || '',
+                        firstP1: first.NamaPetugas1 || '',
+                        lastP1: last.NamaPetugas1 || ''
+                    });
+
+                    if (!historyHasEverLoaded || signature !== historyLastSignature) {
+                        historyAllData = data;
+                        // Pastikan page tidak out-of-range setelah update
+                        const totalPages = Math.max(1, Math.ceil(historyAllData.length / historyPerPage));
+                        if (historyPage > totalPages) historyPage = totalPages;
+                        renderHistoryPage();
+                        historyLastSignature = signature;
+                    } else {
+                        // Data tidak berubah, tapi meta/pager bisa tetap sinkron jika user ubah perPage
+                        if (!historyHasEverLoaded) {
+                            historyAllData = data;
+                            renderHistoryPage();
+                        }
+                    }
+
+                    historyHasEverLoaded = true;
+                } else {
+                    if (!silent) {
+                        if (listEl) listEl.innerHTML = '<div class="text-center py-8 text-red-500">Gagal memuat data. Pastikan URL Google Apps Script sudah benar.</div>';
+                        if (metaEl) metaEl.textContent = '';
+                        if (pagerEl) pagerEl.innerHTML = '';
+                    }
+                }
+            } catch (error) {
+                if (!silent) {
+                    if (listEl) listEl.innerHTML = '<div class="text-center py-8 text-red-500">Gagal memuat data. Pastikan URL Google Apps Script sudah benar.</div>';
+                    if (metaEl) metaEl.textContent = '';
+                    if (pagerEl) pagerEl.innerHTML = '';
+                }
+            }
+        }
+
+        function escapeHtml(str) {
+            return String(str ?? '')
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function renderHistoryPage() {
+            const listEl = document.getElementById('historyList');
+            const metaEl = document.getElementById('historyMeta');
+
+            const total = historyAllData.length;
+            const perPage = historyPerPage;
+            const totalPages = Math.max(1, Math.ceil(total / perPage));
+            const page = Math.min(Math.max(1, historyPage), totalPages);
+            historyPage = page;
+
+            const startIndex = (page - 1) * perPage;
+            const endIndexExclusive = Math.min(startIndex + perPage, total);
+            const slice = historyAllData.slice(startIndex, endIndexExclusive);
+
+            if (metaEl) {
+                if (total === 0) {
+                    metaEl.textContent = '';
+                } else {
+                    metaEl.textContent = `Menampilkan ${startIndex + 1}-${endIndexExclusive} dari ${total} pengajuan`;
+                }
+            }
+
+            if (!slice || slice.length === 0) {
+                if (listEl) {
+                    listEl.innerHTML = '<div class="text-center py-12 text-sky-600"><svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p class="text-lg">Belum ada riwayat pengajuan</p></div>';
+                }
+                renderHistoryPagination();
+                return;
+            }
+
+            if (listEl) {
+                listEl.innerHTML = slice.map((item, idx) => {
+                    const globalIndex = startIndex + idx;
+                    // Penomoran: pengajuan terbaru = #1
+                    const nomor = globalIndex + 1;
+                    return `
+                    <div class="bg-gradient-to-r from-sky-50 to-cyan-50 rounded-2xl p-5 border border-sky-100 hover:shadow-lg transition-all">
+                        <div class="flex flex-col lg:flex-row justify-between gap-4">
+                            <div class="flex-1">
+                                <div class="flex items-start gap-3 mb-3 flex-wrap">
+                                    <span class="shrink-0 inline-flex items-center justify-center whitespace-nowrap bg-sky-200 text-sky-900 text-xs font-extrabold px-3 py-1.5 rounded-full ring-1 ring-sky-300/60 shadow-sm tabular-nums">#${nomor}</span>
+                                    <span class="min-w-0 text-gray-600 text-sm break-words">📅 ${escapeHtml(item.Timestamp || '-') }</span>
+                                </div>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-white/70 rounded-xl p-4">
+                                        <p class="font-semibold text-sky-800 mb-2">👤 Petugas 1 (Pengaju)</p>
+                                        <p class="text-gray-700"><strong>${escapeHtml(item.NamaPetugas1 || '-')}</strong></p>
+                                        <p class="text-gray-600 text-sm">📆 ${escapeHtml(formatDate(item.TanggalAwal))}</p>
+                                        <p class="text-gray-600 text-sm">⏰ ${escapeHtml(item.ShiftAwal || '-')}</p>
+                                        <p class="text-gray-600 text-sm">📍 ${escapeHtml(item.AreaAwal || '-')}</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-xl p-4">
+                                        <p class="font-semibold text-cyan-800 mb-2">👤 Petugas 2 (Ditukar)</p>
+                                        <p class="text-gray-700"><strong>${escapeHtml(item.NamaPetugas2 || '-')}</strong></p>
+                                        <p class="text-gray-600 text-sm">📆 ${escapeHtml(formatDate(item.TanggalPengganti))}</p>
+                                        <p class="text-gray-600 text-sm">⏰ ${escapeHtml(item.ShiftPengganti || '-')}</p>
+                                        <p class="text-gray-600 text-sm">📍 ${escapeHtml(item.AreaPengganti || '-')}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+
+            renderHistoryPagination();
+        }
+
+        function renderHistoryPagination() {
+            const pagerEl = document.getElementById('historyPagination');
+            if (!pagerEl) return;
+
+            const total = historyAllData.length;
+            const perPage = historyPerPage;
+            const totalPages = Math.max(1, Math.ceil(total / perPage));
+            const page = Math.min(Math.max(1, historyPage), totalPages);
+            historyPage = page;
+
+            if (total === 0 || totalPages <= 1) {
+                pagerEl.innerHTML = '';
+                return;
+            }
+
+            const mkBtn = (label, targetPage, { active = false, disabled = false } = {}) => {
+                const base = 'px-3 py-2 rounded-xl text-sm font-semibold border transition';
+                const cls = active
+                    ? `${base} bg-sky-600 text-white border-sky-600`
+                    : `${base} bg-white/70 hover:bg-white text-sky-700 border-sky-200`;
+                const dis = disabled ? 'opacity-40 pointer-events-none' : '';
+                return `<button type="button" data-page="${targetPage}" class="${cls} ${dis}">${label}</button>`;
+            };
+
+            // Build window pages
+            const windowSize = 7;
+            let start = Math.max(1, page - Math.floor(windowSize / 2));
+            let end = Math.min(totalPages, start + windowSize - 1);
+            start = Math.max(1, end - windowSize + 1);
+
+            let html = '';
+            html += mkBtn('⟨', page - 1, { disabled: page === 1 });
+            html += mkBtn('1', 1, { active: page === 1 });
+
+            if (start > 2) {
+                html += `<span class="px-2 text-sky-700">…</span>`;
+            }
+
+            for (let p = Math.max(2, start); p <= Math.min(totalPages - 1, end); p++) {
+                html += mkBtn(String(p), p, { active: p === page });
+            }
+
+            if (end < totalPages - 1) {
+                html += `<span class="px-2 text-sky-700">…</span>`;
+            }
+
+            if (totalPages > 1) {
+                html += mkBtn(String(totalPages), totalPages, { active: page === totalPages });
+            }
+
+            html += mkBtn('⟩', page + 1, { disabled: page === totalPages });
+
+            pagerEl.innerHTML = html;
+
+            // Bind click handlers
+            Array.from(pagerEl.querySelectorAll('button[data-page]')).forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = parseInt(btn.getAttribute('data-page'), 10);
+                    if (Number.isFinite(target)) {
+                        historyPage = Math.min(Math.max(1, target), totalPages);
+                        renderHistoryPage();
+                        // scroll sedikit ke atas list agar user tidak nyasar (mobile)
+                        const listEl = document.getElementById('historyList');
+                        if (listEl) listEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            try {
+                const date = new Date(dateStr);
+                return date.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            } catch {
+                return dateStr;
+            }
+        }
+
+        // Form Submit
+        document.getElementById('tukarPiketForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!SCRIPT_URL) {
+                alert('Silakan setup Google Sheets terlebih dahulu!');
+                openSetupModal();
+                return;
+            }
+            
+            const formData = {
+                petugas1: document.getElementById('petugas1').value,
                 tanggal1: document.getElementById('tanggal1').value,
                 shift1: document.getElementById('shift1').value,
                 area1: document.getElementById('area1').value,
-                petugas2: petugas2.value,
+                petugas2: document.getElementById('petugas2').value,
                 tanggal2: document.getElementById('tanggal2').value,
                 shift2: document.getElementById('shift2').value,
-                area2: document.getElementById('area2').value,
+                area2: document.getElementById('area2').value
             };
-
+            
+            // Validation
+            if (formData.petugas1 === formData.petugas2) {
+                alert('Nama Petugas 1 dan Petugas 2 tidak boleh sama!');
+                return;
+            }
+            
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+            
             try {
-                await fetch(API_URL, {
+                await fetch(SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(data)
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
                 });
-
-                successMsg.style.display = 'block';
-                form.reset();
-                window.scrollTo({top: 0, behavior: 'smooth'});
-                setTimeout(() => successMsg.style.display = 'none', 4000);
+                
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                document.getElementById('successModal').classList.remove('hidden');
+                this.reset();
             } catch (error) {
-                errorMsg.style.display = 'block';
-                setTimeout(() => errorMsg.style.display = 'none', 4000);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = '📤 Kirim Pengajuan';
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                alert('Terjadi kesalahan. Silakan coba lagi.');
             }
         });
 
-        // Load data saat halaman dibuka
-        loadNames();
+        // Modals
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        function openSetupModal() {
+            document.getElementById('scriptUrl').value = SCRIPT_URL;
+            document.getElementById('setupModal').classList.remove('hidden');
+        }
+
+        function closeSetupModal() {
+            document.getElementById('setupModal').classList.add('hidden');
+        }
+
+        function saveScriptUrl() {
+            const url = document.getElementById('scriptUrl').value.trim();
+            if (url) {
+                localStorage.setItem('scriptUrl', url);
+                SCRIPT_URL = url;
+                closeSetupModal();
+                loadPetugas();
+            } else {
+                // Jika kosong, gunakan default
+                localStorage.removeItem('scriptUrl');
+                SCRIPT_URL = DEFAULT_SCRIPT_URL;
+                closeSetupModal();
+                loadPetugas();
+            }
+        }
+
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close handler for DB banner
+            const closeBtn = document.getElementById('dbPopupClose');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    const popup = document.getElementById('dbPopup');
+                    if (popup) popup.classList.add('hidden');
+                });
+            }
+
+            // History per-page selector
+            const perPageEl = document.getElementById('historyPerPage');
+            if (perPageEl) {
+                perPageEl.value = String(historyPerPage);
+                perPageEl.addEventListener('change', () => {
+                    const val = parseInt(perPageEl.value, 10);
+                    historyPerPage = [10,20,30,40,50,100].includes(val) ? val : 10;
+                    localStorage.setItem('historyPerPage', String(historyPerPage));
+                    historyPage = 1;
+                    // Re-render without forcing refetch
+                    renderHistoryPage();
+                });
+            }
+
+            loadPetugas();
+
+            // Set min date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('tanggal1').setAttribute('min', today);
+            document.getElementById('tanggal2').setAttribute('min', today);
+        });
     </script>
 </body>
 </html>
